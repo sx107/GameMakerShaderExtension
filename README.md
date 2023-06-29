@@ -60,5 +60,10 @@ Unlinks the texture from the shader.
 
 Full clearup, delete all textures. Can be used only once. Call in the __game_end__ event.
 
+## HLSL Usage
 
+``Texture2D myTexture : register( t0 );``
 
+Adds the texture to slot 0. *t1* will add it to slot 1, *t2* will add it to slot 2 and so forth.
+
+Texture fetching in vertex buffer is done using ``myTexture[uint2(6,6)]``. Note the _uint2_ type. There is no sub-sampling available in vertex shaders.
