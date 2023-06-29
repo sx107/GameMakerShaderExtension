@@ -86,3 +86,7 @@ GMEXPORT double shader_clear_memory()
 GMEXPORT double shader_load_texture_from_buffer(double _id, char* _buffer) {
 	return manager->loadFromBuffer(_id, _buffer);
 }
+
+GMEXPORT double shader_get_texture_memsize(double _id) {
+	return manager->getTextureMemorySize(_id);
+}

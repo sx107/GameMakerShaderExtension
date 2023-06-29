@@ -241,3 +241,8 @@ int Manager::loadFromBuffer(int _id, char* _buffer) {
 	memcpy(texture->textureData, _buffer, (texture->width * texture->height) * texture->components * sizeof(float));
 	return (texture->width * texture->height) * texture->components * sizeof(float);
 }
+
+int Manager::getTextureMemorySize(int _id) {
+	TextureHolder* texture = findTexture(_id);
+	return (texture->width * texture->height) * texture->components * sizeof(float);
+}

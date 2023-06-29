@@ -1,5 +1,6 @@
 # GameMakerShaderExtension
  Vertex fetching for HLSL shaders.
+ GMC forum topic: https://forum.gamemaker.io/index.php?threads/vertex-fetching-dll-for-hlsl.95806/
 
  A fork that adds loading from GM buffer and new texture formats.
 

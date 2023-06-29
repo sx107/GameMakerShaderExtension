@@ -42,5 +42,6 @@ public:
 	void clearResources(int _slot); //Free up a SRV slot, not sure if its nessecary, but just in case it crashes if you delete a texture's srv that is currently in use.
 	void recreateTexture(int _id);
 	int loadFromBuffer(int _id, char* _buffer);
+	int getTextureMemorySize(int _id);
 };
 
