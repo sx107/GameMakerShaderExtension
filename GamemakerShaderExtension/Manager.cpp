@@ -21,14 +21,17 @@ Manager::~Manager()
 	textures.clear();
 }
 
-int Manager::createTexture(int _width, int _height, int _value)
+int Manager::createTexture(int _width, int _height, int _value, int format)
 {
 	HRESULT hr;
 	TextureHolder* texture = new TextureHolder();
+	if (format == GM_FORMAT_RGBA32FLOAT) { texture->components = 4;}
+	else if (format == GM_FORMAT_R32FLOAT) { texture->components = 1; }
 	texture->width = (int)_width;
 	texture->height = (int)_height;
 	texture->textureData = new float[(texture->width * texture->height) * texture->components];
 	texture->id = textureID;
+	texture->format = format;
 	textureID += 1;
 
 	//Fill texture data.
@@ -46,7 +49,8 @@ int Manager::createTexture(int _width, int _height, int _value)
 	desc.Width = texture->width;
 	desc.Height = texture->height;
 	desc.MipLevels = desc.ArraySize = 1;
-	desc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	if (format == GM_FORMAT_RGBA32FLOAT) { desc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT; }
+	else if (format == GM_FORMAT_R32FLOAT) { desc.Format = DXGI_FORMAT_R32_FLOAT; }
 	desc.SampleDesc.Count = 1;
 	desc.Usage = D3D11_USAGE_IMMUTABLE;
 	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
@@ -60,7 +64,9 @@ int Manager::createTexture(int _width, int _height, int _value)
 	}
 
 	D3D11_SHADER_RESOURCE_VIEW_DESC SRVDesc = {};
-	SRVDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	if (format == GM_FORMAT_RGBA32FLOAT) { SRVDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT; }
+	else if (format == GM_FORMAT_R32FLOAT) { SRVDesc.Format = DXGI_FORMAT_R32_FLOAT; }
+	
 	SRVDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	SRVDesc.Texture2D.MipLevels = 1;
 	
@@ -72,7 +78,7 @@ int Manager::createTexture(int _width, int _height, int _value)
 		MessageBoxA(NULL, "Couldn't create shader resource view", NULL, MB_OK);
 	}
 
-	textures.push_back(texture);
+	textures.insert({ texture->id, texture });
 	return texture->id;
 }
 
@@ -126,17 +132,10 @@ float Manager::getPixelValue(int _id, int _x, int _y, int _channel)
 
 TextureHolder* Manager::findTexture(int _id)
 {
-	TextureHolder* texture = nullptr;
-	for (int i = 0; i < textures.size(); i++)
-	{
-		texture = textures.at(i);
-
-		if (texture->id == _id)
-		{
-			break;
-		}
-	}
-	return texture;
+	if (_id < 0) { return nullptr; }
+	auto search = textures.find(_id);
+	if (search == textures.end()) { return nullptr; }
+	return search->second;
 }
 
 void Manager::setTexture(int _id, int _slot)
@@ -175,7 +174,8 @@ void Manager::updateTexture(int _id)
 		texture->shaderResourceView->Release();
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC SRVDesc = {};
-		SRVDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		if (texture->format == GM_FORMAT_RGBA32FLOAT) { SRVDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT; }
+		else if (texture->format == GM_FORMAT_R32FLOAT) { SRVDesc.Format = DXGI_FORMAT_R32_FLOAT; }
 		SRVDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 		SRVDesc.Texture2D.MipLevels = 1;
 		HRESULT hr;
@@ -207,7 +207,8 @@ void Manager::recreateTexture(int _id)
 		desc.Width = texture->width;
 		desc.Height = texture->height;
 		desc.MipLevels = desc.ArraySize = 1;
-		desc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		if (texture->format == GM_FORMAT_RGBA32FLOAT) { desc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT; }
+		else if (texture->format == GM_FORMAT_R32FLOAT) { desc.Format = DXGI_FORMAT_R32_FLOAT; }
 		desc.SampleDesc.Count = 1;
 		desc.Usage = D3D11_USAGE_IMMUTABLE;
 		desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
@@ -221,7 +222,8 @@ void Manager::recreateTexture(int _id)
 		}
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC SRVDesc = {};
-		SRVDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		if (texture->format == GM_FORMAT_RGBA32FLOAT) { SRVDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT; }
+		else if (texture->format == GM_FORMAT_R32FLOAT) { SRVDesc.Format = DXGI_FORMAT_R32_FLOAT; }
 		SRVDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 		SRVDesc.Texture2D.MipLevels = 1;
 		hr = device->CreateShaderResourceView(texture->texture, &SRVDesc, &texture->shaderResourceView);
@@ -232,4 +234,10 @@ void Manager::recreateTexture(int _id)
 			MessageBoxA(NULL, "Couldn't create shader resource view upon recreation", NULL, MB_OK);
 		}
 	}
+}
+
+int Manager::loadFromBuffer(int _id, char* _buffer) {
+	TextureHolder* texture = findTexture(_id);
+	memcpy(texture->textureData, _buffer, (texture->width * texture->height) * texture->components * sizeof(float));
+	return (texture->width * texture->height) * texture->components * sizeof(float);
 }

@@ -69,13 +69,20 @@ GMEXPORT double shader_get_texture_pixel(double _id, double _x, double _y, doubl
 	return manager->getPixelValue(_id, _x, _y, _channel);
 }
 
-GMEXPORT double shader_create_vertex_texture(double _width, double _height, double _value)
+GMEXPORT double shader_create_vertex_texture(double _width, double _height, double _value, double _format)
 {
-	return manager->createTexture(_width, _height, _value); //_value is a default value to initalize all pixels with.
+	if (_format != GM_FORMAT_R32FLOAT && _format != GM_FORMAT_RGBA32FLOAT) {
+		_format = GM_FORMAT_RGBA32FLOAT;
+	}
+	return manager->createTexture(_width, _height, _value, _format); //_value is a default value to initalize all pixels with.
 }
 
 GMEXPORT double shader_clear_memory()
 {
 	manager->~Manager();
 	return 1.0;
+}
+
+GMEXPORT double shader_load_texture_from_buffer(double _id, char* _buffer) {
+	return manager->loadFromBuffer(_id, _buffer);
 }
