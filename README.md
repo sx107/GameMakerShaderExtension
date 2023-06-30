@@ -40,9 +40,9 @@ Access to the raw data of the texture (still in RAM). For ``r32float`` textures 
 
 Access to the pixel data of the texture in RAM in a bit more convinient way.
 
-### shader_load_texture_from_buffer(texture_id, buffer_address)
+### shader_load_texture_from_buffer(texture_id, buffer_address, buffer_offset)
 
-Loads the texture from GM buffer. Buffer address can be get using the ``buffer_get_address`` function; copying the surface to buffer can be done using ``buffer_get_surface``. In the latter case, be sure to use the same format for the surface and texture.
+Loads the texture from GM buffer from the ``buffer_offset`` offset. Buffer address can be get using the ``buffer_get_address`` function; copying the surface to buffer can be done using ``buffer_get_surface``. In the latter case, be sure to use the same format for the surface and texture.
 
 ### shader_get_texture_memsize(texture_id)
 
@@ -55,6 +55,10 @@ Deletes the texture texture_id.
 ### shader_free_slot
 
 Unlinks the texture from the shader.
+
+### shader_texture_free_ram(texture_id)
+
+Frees the texture RAM, but leaves it in the GPU. After this procedure, the texture is unmodifiable. It can only be deleted.
 
 ### shader_clear_memory()
 

@@ -1,1 +1,36 @@
-﻿  GamemakerShaderExtension.vcxproj -> E:\Sx\Programming\GameMakerShaderExtension\x64\Release\GamemakerShaderExtension.dll
+﻿  dllmain.cpp
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(24,27): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(24,22): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(30,25): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(36,26): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(44,27): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(51,40): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(51,32): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(51,27): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(58,51): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(58,47): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(58,43): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(58,39): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(58,35): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(58,31): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(58,26): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(64,39): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(64,34): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(69,45): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(69,41): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(69,37): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(69,32): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(77,57): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(77,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(77,40): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(77,32): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(87,33): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(91,39): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+E:\Sx\Programming\GameMakerShaderExtension\GamemakerShaderExtension\dllmain.cpp(95,33): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+     Создается библиотека E:\Sx\Programming\GameMakerShaderExtension\x64\Release\GamemakerShaderExtension.lib и объект E:\Sx\Programming\GameMakerShaderExtension\x64\Release\GamemakerShaderExtension.exp
+  Создание кода
+  1 of 152 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  GamemakerShaderExtension.vcxproj -> E:\Sx\Programming\GameMakerShaderExtension\x64\Release\GamemakerShaderExtension.dll

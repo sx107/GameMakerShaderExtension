@@ -43,5 +43,6 @@ public:
 	void recreateTexture(int _id);
 	int loadFromBuffer(int _id, char* _buffer);
 	int getTextureMemorySize(int _id);
+	int freeTextureRAM(int _id);
 };
 

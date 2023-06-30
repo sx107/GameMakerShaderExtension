@@ -15,7 +15,7 @@ Manager::~Manager()
 		TextureHolder* texture = textures.at(i);
 		texture->shaderResourceView->Release();
 		texture->texture->Release();
-		delete[] texture->textureData;
+		if (texture->textureData) { delete[] texture->textureData; }
 	}
 	//Now clear the textures list.
 	textures.clear();
@@ -85,14 +85,17 @@ int Manager::createTexture(int _width, int _height, int _value, int format)
 void Manager::setTextureValue(int _id, int _index, float _value)
 {
 	TextureHolder* texture = findTexture(_id);
-	texture->textureData[_index] = _value;
+	if (texture && texture->textureData)
+	{
+		texture->textureData[_index] = _value;
+	}
 }
 
 float Manager::getTextureValue(int _id, int _index)
 {
 	TextureHolder* texture = findTexture(_id);
 
-	if (texture)
+	if (texture && texture->textureData)
 	{
 		return texture->textureData[_index];
 	}
@@ -103,7 +106,7 @@ void Manager::setPixelColour(int _id, int _x, int _y, float _r, float _g, float 
 {
 	TextureHolder* texture = findTexture(_id);
 
-	if (texture)
+	if (texture && texture->textureData)
 	{
 		int tmpIndex = 0;
 		tmpIndex += texture->width * texture->components * _y;
@@ -119,7 +122,7 @@ float Manager::getPixelValue(int _id, int _x, int _y, int _channel)
 {
 	TextureHolder* texture = findTexture(_id);
 
-	if (texture)
+	if (texture && texture->textureData)
 	{
 		int tmpIndex = 0;
 		tmpIndex += texture->width * texture->components * _y;
@@ -157,7 +160,7 @@ void Manager::deleteTexture(int _id)
 	{
 		texture->shaderResourceView->Release();
 		texture->texture->Release();
-		delete[] texture->textureData;
+		if (texture->textureData) { delete[] texture->textureData; }
 		delete texture;
 	}
 }
@@ -166,7 +169,7 @@ void Manager::updateTexture(int _id)
 {
 	TextureHolder* texture = findTexture(_id);
 	
-	if (texture)
+	if (texture && texture->textureData)
 	{
 		//Update the texture.
 		context->UpdateSubresource(texture->texture, 0, NULL, texture->textureData, texture->components * texture->width, texture->components * texture->height);
@@ -192,7 +195,7 @@ void Manager::recreateTexture(int _id)
 {
 	TextureHolder* texture = findTexture(_id);
 
-	if (texture)
+	if (texture && texture->textureData)
 	{
 		texture->shaderResourceView->Release();
 		texture->texture->Release();
@@ -238,11 +241,28 @@ void Manager::recreateTexture(int _id)
 
 int Manager::loadFromBuffer(int _id, char* _buffer) {
 	TextureHolder* texture = findTexture(_id);
-	memcpy(texture->textureData, _buffer, (texture->width * texture->height) * texture->components * sizeof(float));
-	return (texture->width * texture->height) * texture->components * sizeof(float);
+	if (texture && texture->textureData) {
+		memcpy(texture->textureData, _buffer, (texture->width * texture->height) * texture->components * sizeof(float));
+		return (texture->width * texture->height) * texture->components * sizeof(float);
+	}
+	return -1;
 }
 
 int Manager::getTextureMemorySize(int _id) {
 	TextureHolder* texture = findTexture(_id);
-	return (texture->width * texture->height) * texture->components * sizeof(float);
+	if (texture) {
+		if (!texture->textureData) { return 0; }
+		return (texture->width * texture->height) * texture->components * sizeof(float);
+	}
+	return -1;
+}
+
+int Manager::freeTextureRAM(int _id) {
+	TextureHolder* texture = findTexture(_id);
+	if (texture && texture->textureData) {
+		delete[] texture->textureData;
+		texture->textureData = nullptr;
+		return getTextureMemorySize(_id);
+	}
+	return 0;
 }
