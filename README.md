@@ -4,9 +4,15 @@
 
  A fork that adds loading from GM buffer and new texture formats.
 
- __TODO:__
+## Structure
+
+- __Release__ - Extention and dll file
+- __vertexTextureExample__ - example project in GMS2 with loading the texture from surface
+- __GamemakerShaderExtention__ - dll source code
+
+## TODO:
+
  - Add 8-bit int formats
- - Add examples, especially with loading from buffer
 
  ## Functions and usage
  
